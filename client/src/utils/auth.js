@@ -4,7 +4,7 @@ export default class Auth {
   auth = new auth0.WebAuth({
     domain: 'dev-lj5y3y8f.eu.auth0.com',
     clientID: 'gP5ljjv8e7L1haprnRv7rJhaM77mt3jc',
-    redirectUri: 'http://localhost:3000/callback',
+    redirectUri: '/callback',
     responseType: 'token id_token',
     scope: 'openid profile email'
   })
@@ -59,7 +59,7 @@ export default class Auth {
     localStorage.removeItem('id_token')
     localStorage.removeItem('expiresAt')
     this.auth.logout({
-      returnTo: 'http://localhost:3000/authcheck',
+      returnTo: '/authcheck',
       client_id: 'gP5ljjv8e7L1haprnRv7rJhaM77mt3jc'
     });
     // setTimeout(() => { history.replace('/authcheck') }, 200);
