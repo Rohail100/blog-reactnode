@@ -2,22 +2,18 @@ var express = require('express');
 var router = express.Router();
 var pool = require('./db')
 
-router.get('/hello', (req, res) => {
-  res.json('hello world from me')
-})
-
 /*
     POSTS ROUTES SECTION
 */
 
-router.get('/api/get/allposts', (req, res, next) => {
+router.get('/get/allposts', (req, res, next) => {
   pool.query("SELECT * FROM posts ORDER BY date_created DESC", (q_err, q_res) => {
     res.json(q_res.rows)
   })
 })
 
 
-router.post('/api/post/posttodb', (req, res, next) => {
+router.post('/post/posttodb', (req, res, next) => {
   const values = [req.body.title, req.body.body, req.body.uid, req.body.username]
   pool.query(`INSERT INTO posts(title, body, user_id, author, date_created)
               VALUES($1, $2, $3, $4, NOW() )`, values, (q_err, q_res) => {
@@ -26,7 +22,7 @@ router.post('/api/post/posttodb', (req, res, next) => {
   })
 })
 
-router.put('/api/put/post', (req, res, next) => {
+router.put('/put/post', (req, res, next) => {
   const values = [req.body.title, req.body.body, req.body.uid, req.body.pid, req.body.username]
   pool.query(`UPDATE posts SET title= $1, body=$2, user_id=$3, author=$5, date_created=NOW()
               WHERE pid = $4`, values,
@@ -36,7 +32,7 @@ router.put('/api/put/post', (req, res, next) => {
     })
 })
 
-router.delete('/api/delete/postcomments', (req, res, next) => {
+router.delete('/delete/postcomments', (req, res, next) => {
   const post_id = req.body.post_id
   pool.query(`DELETE FROM comments
               WHERE post_id = $1`, [post_id],
@@ -46,7 +42,7 @@ router.delete('/api/delete/postcomments', (req, res, next) => {
     })
 })
 
-router.delete('/api/delete/post', (req, res, next) => {
+router.delete('/delete/post', (req, res, next) => {
   const post_id = req.body.post_id
   pool.query(`DELETE FROM posts WHERE pid = $1`, [post_id],
     (q_err, q_res) => {
@@ -61,7 +57,7 @@ router.delete('/api/delete/post', (req, res, next) => {
 */
 
 
-router.post('/api/post/commenttodb', (req, res, next) => {
+router.post('/post/commenttodb', (req, res, next) => {
 
   const time = new Date()
 
@@ -80,7 +76,7 @@ router.post('/api/post/commenttodb', (req, res, next) => {
     })
 })
 
-router.put('/api/put/commenttodb', (req, res, next) => {
+router.put('/put/commenttodb', (req, res, next) => {
   const values = [req.body.comment, req.body.user_id, req.body.post_id, req.body.username, req.body.cid]
 
   pool.query(`UPDATE comments SET
@@ -93,7 +89,7 @@ router.put('/api/put/commenttodb', (req, res, next) => {
 })
 
 
-router.delete('/api/delete/comment', (req, res, next) => {
+router.delete('/delete/comment', (req, res, next) => {
   const cid = req.body.cid
 
   pool.query(`DELETE FROM comments
@@ -105,7 +101,7 @@ router.delete('/api/delete/comment', (req, res, next) => {
 })
 
 
-router.get('/api/get/allpostcomments', (req, res, next) => {
+router.get('/get/allpostcomments', (req, res, next) => {
   const post_id = String(req.query.post_id)
   console.log(post_id)
   pool.query(`SELECT * FROM comments
@@ -121,7 +117,7 @@ router.get('/api/get/allpostcomments', (req, res, next) => {
   USER PROFILE SECTION
 */
 
-router.post('/api/posts/userprofiletodb', (req, res, next) => {
+router.post('/posts/userprofiletodb', (req, res, next) => {
   const values = [req.body.profile.nickname, req.body.profile.email, req.body.profile.email_verified]
   pool.query(`INSERT INTO users(username, email, email_verified, date_created)
                 VALUES($1, $2, $3, NOW())
@@ -131,7 +127,7 @@ router.post('/api/posts/userprofiletodb', (req, res, next) => {
     })
 })
 
-router.get('/api/get/userprofilefromdb', (req, res, next) => {
+router.get('/get/userprofilefromdb', (req, res, next) => {
   const email = req.query.email
   console.log(email)
   pool.query(`SELECT * FROM users
@@ -141,7 +137,7 @@ router.get('/api/get/userprofilefromdb', (req, res, next) => {
     })
 })
 
-router.get('/api/get/userposts', (req, res, next) => {
+router.get('/get/userposts', (req, res, next) => {
   const user_id = req.query.user_id
   pool.query(`SELECT * FROM posts
                 WHERE user_id=$1`, [user_id],

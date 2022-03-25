@@ -1,13 +1,13 @@
 var express = require('express');
 var path = require('path');
-var indexRouter = require('./routes')
+var apiRouter = require('./routes')
 
 var app = express();
 
 // view engine setup
 
 app.use(express.json());
-app.use('/',indexRouter)
+app.use('/api',apiRouter)
 
 // Double Duty 
 app.use(express.static(path.join(__dirname, "client", "build")))
