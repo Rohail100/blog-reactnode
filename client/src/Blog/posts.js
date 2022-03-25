@@ -39,8 +39,6 @@ class Posts extends Component {
     init_state = () => {
         this.setState({ num_posts: this.props.posts.length })
         this.setState({ page_range: this.props.num_posts / 5 })
-        console.log(this.props.posts)
-
         this.slice_posts();
         this.animate_posts();
     }
