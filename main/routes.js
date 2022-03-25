@@ -8,7 +8,9 @@ var pool = require('./db')
 
 router.get('/get/allposts', (req, res, next) => {
   pool.query("SELECT * FROM posts ORDER BY date_created DESC", (q_err, q_res) => {
-    res.json(q_res.rows)
+    if(q_err) res.json(q_err)
+    else if(q_res) res.json(q_res.rows)
+    else res.json([])
   })
 })
 
