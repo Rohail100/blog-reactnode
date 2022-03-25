@@ -1,6 +1,8 @@
 const { Pool } = require('pg')
 const parse = require('pg-connection-string')
-const config = parse('postgres://postgres:Myweb@234@localhost:5432/mydb')
+// const config = parse('postgres://postgres:Myweb@234@localhost:5432/mydb')
+const config = parse(process.env.DATABASE_URL)
+
 
 const pool = new Pool({
   user: config.user,
