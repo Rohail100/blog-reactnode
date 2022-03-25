@@ -4,7 +4,8 @@ export default class Auth {
   auth = new auth0.WebAuth({
     domain: 'dev-lj5y3y8f.eu.auth0.com',
     clientID: 'gP5ljjv8e7L1haprnRv7rJhaM77mt3jc',
-    redirectUri: '/callback',
+    // redirectUri: 'http://localhost:3000/callback',
+    redirectUri: 'https://blog-reactnode.herokuapp.com/callback',
     responseType: 'token id_token',
     scope: 'openid profile email'
   })
@@ -59,7 +60,8 @@ export default class Auth {
     localStorage.removeItem('id_token')
     localStorage.removeItem('expiresAt')
     this.auth.logout({
-      returnTo: '/authcheck',
+      // returnTo: 'http://localhost:3000/authcheck',
+      returnTo: 'https://blog-reactnode.herokuapp.com/authcheck',
       client_id: 'gP5ljjv8e7L1haprnRv7rJhaM77mt3jc'
     });
     // setTimeout(() => { history.replace('/authcheck') }, 200);
