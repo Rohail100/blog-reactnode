@@ -1,0 +1,14 @@
+{
+  "name": "server",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./main/app.js",
+    "dev": "nodemon ./main/app.js",
+    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
+  },
+  "dependencies": {
+    "express": "~4.17.3",
+    "pg": "^8.7.3"
+  }
+}
