@@ -114,7 +114,7 @@ router.get('/get/allpostcomments', (req, res, next) => {
 */
 
 router.post('/posts/userprofiletodb',auth, (req, res, next) => {
-  const values = [req.body.profile.nickname, req.body.profile.email, req.body.profile.email_verified]
+  const values = [req.decoded.nickname, req.decoded.email, req.decoded.email_verified]
   pool.query(`INSERT INTO users(username, email, email_verified, date_created)
                 VALUES($1, $2, $3, NOW())
                 ON CONFLICT DO NOTHING`, values,

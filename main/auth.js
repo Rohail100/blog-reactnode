@@ -17,6 +17,10 @@ const auth = (req, res, next) => {
         pool.query(`SELECT username FROM users
                       WHERE username=$1`, [username],
             (q_err, q_res) => {
+                if(req.url=='/posts/userprofiletodb') {
+                    req.decoded = decoded
+                    next()
+                }
                 if (q_res.rows[0])
                     next()
                 else
