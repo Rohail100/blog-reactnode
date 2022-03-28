@@ -21,7 +21,7 @@ const auth = (req, res, next) => {
                     req.decoded = decoded
                     next()
                 }
-                if (q_res.rows[0])
+                else if (q_res.rows[0])
                     next()
                 else
                     return res.status(401).send('access denied')
