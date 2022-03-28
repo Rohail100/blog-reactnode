@@ -81,12 +81,12 @@ class Profile extends Component {
   
   DeltePost = () => {
     const post_id = this.state.post_id
-    axios.delete('api/delete/postcomments', {data: { post_id: post_id }} )
-      .then(() => axios.delete('/api/delete/post', {data: { post_id: post_id }} )
+    axios.delete('api/delete/postcomments', {data: { post_id: post_id }, headers: {'token': localStorage.getItem('id_token')}} )
+      .then(() => axios.delete('/api/delete/post', {data: { post_id: post_id }, headers: {'token': localStorage.getItem('id_token')}} )
           .then(res => console.log(res) ) )
       .catch(err => console.log(err))
       .then(() => this.handleClickClose())
-      .then(() => setTimeout(() => this.props.history.replace('/'), 700 ) )
+      .then(() => setTimeout(() => this.props.history.go(0), 700 ) )
   }
 
 

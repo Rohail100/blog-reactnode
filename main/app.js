@@ -4,7 +4,7 @@ var apiRouter = require('./routes')
 
 var app = express();
 
-// view engine setup
+// api routes
 
 app.use(express.json());
 app.use('/api',apiRouter)

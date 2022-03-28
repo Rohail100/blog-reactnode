@@ -5,10 +5,10 @@ export default class Auth {
     domain: 'dev-lj5y3y8f.eu.auth0.com',
     clientID: 'gP5ljjv8e7L1haprnRv7rJhaM77mt3jc',
     redirectUri: 'https://blog-reactnode.herokuapp.com/callback',
+    // redirectUri: 'http://localhost:3000/callback',
     responseType: 'token id_token',
     scope: 'openid profile email'
   })
-  // redirectUri: 'http://localhost:3000/callback',
 
   userProfile = {}
 
@@ -61,9 +61,9 @@ export default class Auth {
     localStorage.removeItem('expiresAt')
     this.auth.logout({
       returnTo: 'https://blog-reactnode.herokuapp.com/authcheck',
+      // returnTo: 'http://localhost:3000/authcheck',
       client_id: 'gP5ljjv8e7L1haprnRv7rJhaM77mt3jc'
     });
-    // returnTo: 'http://localhost:3000/authcheck',
     // setTimeout(() => { history.replace('/authcheck') }, 200);
   }
 

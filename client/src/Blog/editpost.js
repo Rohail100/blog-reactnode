@@ -44,7 +44,7 @@ class EditPost extends Component {
       uid: user_id,
       username: username
     }
-    axios.put("/api/put/post", data)
+    axios.put("/api/put/post", data, {headers: {'token': localStorage.getItem('id_token')}})
       .then(res => console.log(res))
       .catch(err => console.log(err))
       .then(setTimeout(() => this.props.history.replace('/profile'), 700))

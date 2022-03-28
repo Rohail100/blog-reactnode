@@ -16,8 +16,8 @@ class AddPost extends Component {
       username: username,
       uid: user_id
     }
-    axios.post('/api/post/posttodb', data)
-      .then(response => console.log(response))
+    axios.post('/api/post/posttodb', data, {headers: {'token': localStorage.getItem('id_token')}})
+      .then(response => console.log(response.data))
       .catch((err) => console.log(err))
       .then(setTimeout(() => this.props.history.replace('/posts'), 700))
   }

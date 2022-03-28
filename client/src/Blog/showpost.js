@@ -103,7 +103,7 @@ class Showpost extends Component {
             username: username
         }
 
-        axios.post('/api/post/commenttodb', data)
+        axios.post('/api/post/commenttodb', data, {headers: {'token': localStorage.getItem('id_token')}})
             .then(res => {
                 const cid = res.data;
                 const submitted_comment = {
@@ -140,14 +140,14 @@ class Showpost extends Component {
             username: username
         }
 
-        axios.put('/api/put/commenttodb', data)
+        axios.put('/api/put/commenttodb', data, {headers: {'token': localStorage.getItem('id_token')}})
             .then(res => console.log(res))
             .catch((err) => console.log(err))
         this.handleCommentUpdate(edited_comment);
     }
     handleDelete = () => {
         const cid = this.state.cid
-        axios.delete('/api/delete/comment', { data: { cid: cid } })
+        axios.delete('/api/delete/comment', { data: { cid: cid }, headers: {'token': localStorage.getItem('id_token')} })
             .then(res => console.log(res))
             .catch((err) => console.log(err))
         this.handleCommentDelete(cid)
